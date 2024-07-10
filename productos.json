@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "title": "Salad",
+    "description": "Tasty",
+    "code": "829",
+    "price": "834.10",
+    "status": true,
+    "stock": "536",
+    "category": "Granite",
+    "thumbnails": []
+  },
+  {
+    "id": 2,
+    "title": "Cheese",
+    "description": "Ergonomic",
+    "code": "376",
+    "price": "311.34",
+    "status": true,
+    "stock": "439",
+    "category": "Steel",
+    "thumbnails": []
+  },
+  {
+    "id": 3,
+    "title": "Chips",
+    "description": "Handmade",
+    "code": "522",
+    "price": "993.76",
+    "status": true,
+    "stock": "39",
+    "category": "Cotton",
+    "thumbnails": []
+  },
+  {
+    "id": 4,
+    "title": "Computer",
+    "description": "Generic",
+    "code": "610",
+    "price": "723.17",
+    "status": true,
+    "stock": "314",
+    "category": "Frozen",
+    "thumbnails": []
+  },
+  {
+    "id": 5,
+    "title": "Shirt",
+    "description": "Rustic",
+    "code": "256",
+    "price": "347.71",
+    "status": true,
+    "stock": "437",
+    "category": "Frozen",
+    "thumbnails": []
+  }
+]
