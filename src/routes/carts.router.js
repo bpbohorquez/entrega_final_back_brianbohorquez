@@ -1,12 +1,13 @@
-const express = require("express");
-const router = express.Router();
-const fs = require("fs");
+import express from "express";
+import { Router } from "express";
+const router = Router();
+import { readFileSync, writeFileSync } from "fs";
 
 // POST Crear carrito
 router.post("/carts", (req, res) => {
   const { products } = req.body;
 
-  let data = fs.readFileSync("carrito.json", "utf8");
+  let data = readFileSync("carrito.json", "utf8");
 
   const carts = JSON.parse(data);
 
@@ -14,14 +15,14 @@ router.post("/carts", (req, res) => {
 
   carts.push({ id, products });
 
-  fs.writeFileSync("carrito.json", JSON.stringify(carts, null, 2));
+  writeFileSync("carrito.json", JSON.stringify(carts, null, 2));
 
   res.json({ id, products });
 });
 
 // GET Listar productos del carrito según id
 router.get("/carts/:id", (req, res) => {
-  let data = fs.readFileSync("carrito.json", "utf8");
+  let data = readFileSync("carrito.json", "utf8");
 
   const carts = JSON.parse(data);
 
@@ -38,8 +39,8 @@ router.get("/carts/:id", (req, res) => {
 
 // POST Agregar productos a un carrito
 router.post("/carts/:cid/product/:pid", (req, res) => {
-  let data = fs.readFileSync("carrito.json", "utf8");
-  let dataP = fs.readFileSync("productos.json", "utf8");
+  let data = readFileSync("carrito.json", "utf8");
+  let dataP = readFileSync("productos.json", "utf8");
 
   let carts = JSON.parse(data);
   let products = JSON.parse(dataP);
@@ -54,7 +55,7 @@ router.post("/carts/:cid/product/:pid", (req, res) => {
   cartProducts.push({ product: paramProductId, quantity: 1 });
 
   if (cartProducts && lookProduct) {
-    fs.writeFileSync("carrito.json", JSON.stringify(carts, null, 2));
+    writeFileSync("carrito.json", JSON.stringify(carts, null, 2));
 
     res.json("Producto agregado al carrito exitosamente");
   } else {
@@ -62,4 +63,4 @@ router.post("/carts/:cid/product/:pid", (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

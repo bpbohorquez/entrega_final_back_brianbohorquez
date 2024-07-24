@@ -1,0 +1,13 @@
+<div>
+    <h1>Home View</h1>
+
+    <div>
+        
+        {{#each products}}
+            <div>
+                ID#{{this.id}}. Titulo: {{this.title}}, Descripcion: {{this.description}}, Codigo: {{this.code}}, Precio: {{this.price}}, Status: {{this.status}}, Stock: {{this.stock}}, Categoria: {{this.category}}, Thumbnails: {{this.thumbnails}}
+            </div>
+        {{/each}}
+    </div>
+
+</div>

@@ -1,10 +1,11 @@
-const express = require("express");
-const router = express.Router();
-const fs = require("fs");
+import express from "express";
+import { Router } from "express";
+const router = Router();
+import { readFileSync, writeFileSync } from "fs";
 
 // Get todos los productos
 router.get("/products", (req, res) => {
-  let data = fs.readFileSync("productos.json", "utf8");
+  let data = readFileSync("productos.json", "utf8");
 
   const products = JSON.parse(data);
 
@@ -19,7 +20,7 @@ router.get("/products", (req, res) => {
 
 // Get producto por ID
 router.get("/products/:id", (req, res) => {
-  let data = fs.readFileSync("productos.json", "utf8");
+  let data = readFileSync("productos.json", "utf8");
 
   const products = JSON.parse(data);
 
@@ -48,7 +49,7 @@ router.post("/products", (req, res) => {
     thumbnails,
   } = req.body;
 
-  let data = fs.readFileSync("productos.json", "utf8");
+  let data = readFileSync("productos.json", "utf8");
 
   const products = JSON.parse(data);
 
@@ -68,7 +69,7 @@ router.post("/products", (req, res) => {
 
   products.push(newProduct);
 
-  fs.writeFileSync("productos.json", JSON.stringify(products, null, 2));
+  writeFileSync("productos.json", JSON.stringify(products, null, 2));
 
   res.json(newProduct);
 });
@@ -86,7 +87,7 @@ router.put("/products/:id", (req, res) => {
     thumbnails,
   } = req.body;
 
-  let data = fs.readFileSync("productos.json", "utf8");
+  let data = readFileSync("productos.json", "utf8");
 
   let products = JSON.parse(data);
 
@@ -110,7 +111,7 @@ router.put("/products/:id", (req, res) => {
     };
 
     product = updatedProduct;
-    fs.writeFileSync("productos.json", JSON.stringify(products, null, 2));
+    writeFileSync("productos.json", JSON.stringify(products, null, 2));
     res.json(product);
   } else {
     res.status(404).json({ message: "Producto no encontrado" });
@@ -119,7 +120,7 @@ router.put("/products/:id", (req, res) => {
 
 // DELETE Eliminar producto
 router.delete("/products/:id", (req, res) => {
-  let data = fs.readFileSync("productos.json", "utf8");
+  let data = readFileSync("productos.json", "utf8");
 
   let products = JSON.parse(data);
 
@@ -127,8 +128,8 @@ router.delete("/products/:id", (req, res) => {
 
   products = products.filter((p) => p.id !== paramId);
 
-  fs.writeFileSync("productos.json", JSON.stringify(products, null, 2));
+  writeFileSync("productos.json", JSON.stringify(products, null, 2));
   res.json({ message: `Producto con id ${paramId} eliminado correctamente` });
 });
 
-module.exports = router;
+export default router;
