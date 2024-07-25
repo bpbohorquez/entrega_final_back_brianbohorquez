@@ -1,10 +1,10 @@
 <div>
-    <h1>Real Time Products View</h1>
+    <h1 style="text-align: center;">Real Time Products View</h1>
 
     <h2> Agregar producto </h2>
 
     <iframe id="invisible" name="invisible" style="display:none;"></iframe>
-    <form action="/products" method="post" target="invisible">
+    <form action="/products" method="post" target="invisible" style="display: flex; flex-direction: column; align-items: center;">
 
         <label for="tituloProducto">Titulo</label>
         <input type="text" id="tituloProducto" name="title" required="true">
@@ -30,15 +30,13 @@
         <button type="submit" onClick="window.location.reload();">Crear Producto</button>
     </form>
 
-    <h2> Elimnar producto </h2>
+    <h2> Eliminar producto </h2>
 
-    <form action="/products" method="delete">
+    <form>
+        <label for="idDelete">Id</label>
+        <input type="number" id="idDelete">
 
-        <label for="idProducto">Id</label>
-        <input type="number" id="idProducto" name="id">
-
-
-        <button type="submit" onClick="window.location.reload();">Eliminar Producto</button>
+        <button type="submit" id="botonDelete">Eliminar Producto</button>
     </form>
 
     <h2> Products View: </h2>

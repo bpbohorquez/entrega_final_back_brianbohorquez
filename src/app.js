@@ -7,7 +7,7 @@ import fs from "fs";
 import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
 import { Server } from "socket.io";
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 
 const app = express();
 const PORT = 8080;
@@ -36,11 +36,23 @@ const socketServer = new Server(httpServer);
 socketServer.on("connection", (socket) => {
   console.log("Nuevo cliente conectado");
 
-  let dataProductos = readFileSync("productos.json", "utf8");
+  socket.on("deleteProduct", (data) => {
+    let dataProductos = readFileSync("productos.json", "utf8");
 
-  const listaProductos = JSON.parse(dataProductos);
+    let listaProductos = JSON.parse(dataProductos);
+    let deleteId = Number(data.id);
+
+    listaProductos = listaProductos.filter((p) => p.id !== deleteId);
+
+    writeFileSync("productos.json", JSON.stringify(listaProductos, null, 2));
+
+    socketServer.emit("products", listaProductos);
+  });
 
   socket.on("productos", () => {
+    let dataProductos = readFileSync("productos.json", "utf8");
+
+    let listaProductos = JSON.parse(dataProductos);
     socketServer.emit("products", listaProductos);
   });
 });

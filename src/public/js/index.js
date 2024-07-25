@@ -1,4 +1,11 @@
 const socket = io();
+let idDelete = document.getElementById("idDelete");
+let botonDelete = document.getElementById("botonDelete");
+
+botonDelete.addEventListener("click", (e) => {
+  socket.emit("deleteProduct", { id: idDelete.value });
+  window.location.reload();
+});
 
 socket.emit("productos", {});
 
