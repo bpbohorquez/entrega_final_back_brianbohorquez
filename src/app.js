@@ -8,6 +8,7 @@ import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
 import { Server } from "socket.io";
 import { readFileSync, writeFileSync } from "fs";
+import mongoose from "mongoose";
 
 const app = express();
 const PORT = 8080;
@@ -21,6 +22,24 @@ app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
+
+// Mongoose
+
+const environment = async () => {
+  await mongoose
+    .connect(
+      "mongodb+srv://bohorquezbrian:coderhousecluster@coderhouse.to5l7.mongodb.net/base?retryWrites=true&w=majority&appName=Coderhouse"
+    )
+
+    .then(() => {
+      console.log("Conectado a la base de datos");
+    })
+    .catch((err) => {
+      console.error("Error conectando a la base de datos", err);
+    });
+};
+
+environment();
 
 // Endpoints
 app.use("/", productsRouter);
