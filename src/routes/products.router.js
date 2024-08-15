@@ -232,7 +232,7 @@ router.post("/products", async (req, res) => {
 //   }
 // });
 
-// CHECK ESTE YA SIRVE:
+// CHECK ESTE YA SIRVE
 router.put("/products/:id", async (req, res) => {
   let { id } = req.params;
 
