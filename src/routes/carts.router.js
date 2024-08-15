@@ -5,21 +5,15 @@ import { readFileSync, writeFileSync } from "fs";
 import productModel from "../models/producto.model.js";
 import cartModel from "../models/carrito.model.js";
 
-// POST Crear carrito
-router.post("/carts", (req, res) => {
-  const { products } = req.body;
+// POST Crear carrito CHECK:
+router.post("/carts", async (req, res) => {
+  let { products } = req.body;
 
-  let data = readFileSync("carrito.json", "utf8");
+  let result = await cartModel.create({
+    products,
+  });
 
-  const carts = JSON.parse(data);
-
-  const id = carts.length + 1;
-
-  carts.push({ id, products });
-
-  writeFileSync("carrito.json", JSON.stringify(carts, null, 2));
-
-  res.json({ id, products });
+  res.send({ status: "success", payload: result });
 });
 
 // GET Listar productos del carrito según id
@@ -39,8 +33,9 @@ router.post("/carts", (req, res) => {
 //   }
 // });
 
+// CHECK:
 router.get("/carts/:id", async (req, res) => {
-  let cartId = req.params;
+  let cartId = req.params.id;
 
   let cart = await cartModel
     .findOne({ _id: cartId })
@@ -75,6 +70,7 @@ router.get("/carts/:id", async (req, res) => {
 //   }
 // });
 
+// CHECK CANTIDAD:
 router.put("/carts/:cid/product/:pid", async (req, res) => {
   let productId = req.params.pid;
   let cartId = req.params.cid;
@@ -84,6 +80,15 @@ router.put("/carts/:cid/product/:pid", async (req, res) => {
   cartUpdate.products.push({ product: productId });
 
   let result = await cartModel.updateOne({ _id: cartId }, cartUpdate);
+
+  res.send({ status: "success", payload: result });
+});
+
+// DELETE borrar carrito:
+router.delete("/carts/:id", async (req, res) => {
+  let { id } = req.params;
+
+  let result = await cartModel.deleteOne({ _id_: id });
 
   res.send({ status: "success", payload: result });
 });

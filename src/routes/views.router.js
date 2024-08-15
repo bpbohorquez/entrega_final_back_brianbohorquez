@@ -2,13 +2,12 @@ import express from "express";
 import { Router } from "express";
 const router = Router();
 import { readFileSync, writeFileSync } from "fs";
+import productModel from "../models/producto.model.js";
+import mongoose from "mongoose";
 
-router.get("/", (req, res) => {
-  let data = readFileSync("productos.json", "utf8");
-
-  const products = JSON.parse(data);
-
-  res.render("home", { products });
+router.get("/", async (req, res) => {
+  let products = await productModel.find();
+  res.render("home", {});
 });
 
 router.get("/realtimeproducts", (req, res) => {

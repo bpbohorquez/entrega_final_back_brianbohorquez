@@ -172,8 +172,6 @@ router.post("/products", async (req, res) => {
   let { title, description, code, price, status, stock, category, thumbnails } =
     req.body;
 
-  console.log(req.body);
-
   let result = await productModel.create({
     title,
     description,
