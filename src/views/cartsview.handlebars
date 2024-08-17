@@ -1,0 +1,32 @@
+<div>
+    
+    <div>
+        
+        {{#each carts}}
+            <div style="margin: 20px;">
+                <h1>
+
+                Cart ID: {{this._id}}
+
+                </h1>
+                
+                <h2>Products:</h2>
+                {{#each this.products}}
+                <div>
+
+
+                    Product ID: {{this.product}}
+                </div>
+                {{/each}}
+                
+            </div>
+            <div>
+
+            
+            </div>
+        {{/each}}
+    </div>
+
+    
+
+</div>

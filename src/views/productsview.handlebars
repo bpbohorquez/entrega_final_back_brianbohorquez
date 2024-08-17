@@ -1,0 +1,26 @@
+<div>
+    <h1>Products View</h1>
+    <div>
+        
+        {{#each products}}
+            <div style="margin: 20px;">
+                ID: {{this._id}} <br>
+                Titulo: {{this.title}} <br>
+                Descripcion: {{this.description}}<br>
+                Codigo: {{this.code}}<br>
+                Precio: {{this.price}}<br>
+                Status: {{this.status}}<br>
+                Stock: {{this.stock}}<br>
+                Categoria: {{this.category}}<br>
+                Thumbnails: {{this.thumbnails}}<br>
+            </div>
+            <div>
+
+            <button>Agregar a carrito</button>
+            </div>
+        {{/each}}
+    </div>
+
+    
+
+</div>
