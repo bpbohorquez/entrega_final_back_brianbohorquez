@@ -4,10 +4,20 @@
     <div>
         
         {{#each products}}
-            <div>
-                ID#{{this.id}}. Titulo: {{this.title}}, Descripcion: {{this.description}}, Codigo: {{this.code}}, Precio: {{this.price}}, Status: {{this.status}}, Stock: {{this.stock}}, Categoria: {{this.category}}, Thumbnails: {{this.thumbnails}}
+            <div style="margin: 20px;">
+                ID: {{this._id}} <br>
+                Titulo: {{this.title}} <br>
+                Descripcion: {{this.description}}<br>
+                Codigo: {{this.code}}<br>
+                Precio: {{this.price}}<br>
+                Status: {{this.status}}<br>
+                Stock: {{this.stock}}<br>
+                Categoria: {{this.category}}<br>
+                Thumbnails: {{this.thumbnails}}<br>
             </div>
         {{/each}}
     </div>
+
+    
 
 </div>

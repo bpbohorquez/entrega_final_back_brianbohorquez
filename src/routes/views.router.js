@@ -6,8 +6,9 @@ import productModel from "../models/producto.model.js";
 import mongoose from "mongoose";
 
 router.get("/", async (req, res) => {
-  let products = await productModel.find();
-  res.render("home", {});
+  let products = await productModel.find().lean();
+  res.render("home", { products });
+  // res.send(products);
 });
 
 router.get("/realtimeproducts", (req, res) => {
