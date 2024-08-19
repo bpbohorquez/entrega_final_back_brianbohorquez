@@ -11,7 +11,27 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/productsview", async (req, res) => {
-  let products = await productModel.find().lean();
+  // let products = await productModel.find().lean();
+  let pageQuery = parseInt(req.query.page);
+
+  if (!pageQuery) {
+    pageQuery = 1;
+  }
+
+  let products = await productModel.find().paginate({
+    limit: 10,
+    page: pageQuery,
+  });
+
+  products.prevLink = products.hasPrevPage
+    ? `http://localhost:8080/productsview?page=${products.prevPage}`
+    : "";
+
+  products.nextLink = products.hasNextPage
+    ? `http://localhost:8080/productsview?page=${products.nextPage}`
+    : "";
+
+  console.log({ products });
   res.render("productsview", { products });
 });
 

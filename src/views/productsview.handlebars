@@ -2,9 +2,9 @@
     <h1>Products View</h1>
     <div>
         
-        {{#each products}}
+        {{#each products.docs}}
             <div style="margin: 20px;">
-                ID: {{this._id}} <br>
+                {{!-- ID: {{this._id}} <br>
                 Titulo: {{this.title}} <br>
                 Descripcion: {{this.description}}<br>
                 Codigo: {{this.code}}<br>
@@ -12,8 +12,13 @@
                 Status: {{this.status}}<br>
                 Stock: {{this.stock}}<br>
                 Categoria: {{this.category}}<br>
-                Thumbnails: {{this.thumbnails}}<br>
+                Thumbnails: {{this.thumbnails}}<br> --}}
+
+                {{this}}
             </div>
+
+            
+
             <div>
 
             <button>Agregar a carrito</button>
@@ -21,6 +26,21 @@
         {{/each}}
     </div>
 
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+        {{#if products.hasPrevPage}}
+             <a href={{products.prevLink}}> Anterior</a>
+        {{/if}}
+
+
+        <p id="paginaActual"> {{products.page}} </p> 
+
+        {{#if products.hasNextPage}}
+             <a href={{products.nextLink}}> Siguiente</a>
+        {{/if}}
+    </div>
     
 
 </div>
+
+<script src="/js/script.js"></script>
