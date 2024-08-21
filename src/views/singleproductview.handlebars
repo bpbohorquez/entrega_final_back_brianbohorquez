@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product view</title>
+</head>
+<body>
+    
+<h2> <a href="http://localhost:8080/productsview">Ir a Products View</a> </h2>
+
+<h2> <a href="http://localhost:8080/cartsview">Ir a Carrito</a></h2>      
+
+<div style="border: solid black 1px; border-radius: 5px; display: flex; flex-direction: column; align-items: center;">
+
+
+    <div style="margin: 20px;">
+        <h2 id="idProducto">
+            {{product._id}}
+        </h2> 
+            
+        Titulo: {{product.title}} <br>
+        Descripcion: {{product.description}}<br>
+        Codigo: {{product.code}}<br>
+        Precio: {{product.price}}<br>
+        Status: {{product.status}}<br>
+        Stock: {{product.stock}}<br>
+        Categoria: {{product.category}}<br>
+        Thumbnails: {{product.thumbnails}}<br>
+
+                
+    </div>
+
+            
+
+    <div>
+
+        <button style="margin: 5px;" id="agregarCarrito"> Agregar al carrito </button>
+    </div>
+</div>
+
+<script>
+        let idProducto = document.getElementById("idProducto").innerText
+
+        
+
+        document.getElementById("agregarCarrito").addEventListener("click", function() {
+
+            
+            fetch(`http://localhost:8080/carts/66c0c101e800bceb038d0f53/product/${idProducto}`, {method: 'PUT'})
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la conexión');
+                    }
+                    alert("Producto agregado al carrito correctamente")
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        });
+</script>
+
+
+</body>
+</html>

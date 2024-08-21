@@ -51,27 +51,3 @@ const httpServer = app.listen(PORT, () =>
 );
 
 const socketServer = new Server(httpServer);
-
-socketServer.on("connection", (socket) => {
-  console.log("Nuevo cliente conectado");
-
-  socket.on("deleteProduct", (data) => {
-    let dataProductos = readFileSync("productos.json", "utf8");
-
-    let listaProductos = JSON.parse(dataProductos);
-    let deleteId = Number(data.id);
-
-    listaProductos = listaProductos.filter((p) => p.id !== deleteId);
-
-    writeFileSync("productos.json", JSON.stringify(listaProductos, null, 2));
-
-    socketServer.emit("products", listaProductos);
-  });
-
-  socket.on("productos", () => {
-    let dataProductos = readFileSync("productos.json", "utf8");
-
-    let listaProductos = JSON.parse(dataProductos);
-    socketServer.emit("products", listaProductos);
-  });
-});

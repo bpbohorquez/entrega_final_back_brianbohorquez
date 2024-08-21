@@ -11,7 +11,6 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/productsview", async (req, res) => {
-  // let products = await productModel.find().lean();
   let pageQuery = parseInt(req.query.page);
 
   if (!pageQuery) {
@@ -31,7 +30,13 @@ router.get("/productsview", async (req, res) => {
     ? `http://localhost:8080/productsview?page=${products.nextPage}`
     : "";
 
-  console.log({ products });
+  let productsObjects = await productModel
+    .find()
+    .lean()
+    .limit(10)
+    .skip((pageQuery - 1) * 10);
+  products.productsObjects = productsObjects;
+
   res.render("productsview", { products });
 });
 
@@ -40,8 +45,12 @@ router.get("/cartsview", async (req, res) => {
   res.render("cartsview", { carts });
 });
 
-router.get("/realtimeproducts", (req, res) => {
-  res.render("realTimeProducts");
+router.get("/productsview/:pid", async (req, res) => {
+  let paramId = req.params.pid;
+
+  let product = await productModel.findOne({ _id: paramId }).lean();
+
+  res.render("singleproductview", { product });
 });
 
 export default router;

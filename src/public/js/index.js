@@ -1,9 +1,6 @@
 const socket = io();
 let idDelete = document.getElementById("idDelete");
 let botonDelete = document.getElementById("botonDelete");
-let paginaActual = document.getElementById("paginaActual");
-
-paginaActual.innerHTML = "abcaaaaaaaaaaaaaaaaaaa";
 
 botonDelete.addEventListener("click", (e) => {
   socket.emit("deleteProduct", { id: idDelete.value });
